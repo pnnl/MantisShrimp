@@ -1,0 +1,44 @@
+Bootstrap: docker
+From: continuumio/miniconda3
+   
+%files
+    . /webapp
+   ./../../mantis_shrimp/mantis_shrimp /mantisshrimp/mantis_shrimp
+   ./../setup.py /mantisshrimp/setup.py
+   ./../data/dustmaps /mantisshrimp/data/dustmaps/
+   
+%environment
+    # Initialize Conda in the environment at runtime
+    . /opt/conda/etc/profile.d/conda.sh
+    conda activate basic
+
+%post
+    ENV_NAME=$(head -1 webapp/production.yml | cut -d' ' -f2)
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $APPTAINER_ENVIRONMENT
+    echo "conda activate $ENV_NAME" >> $APPTAINER_ENVIRONMENT
+   
+    #Initialize conda
+    . /opt/conda/etc/profile.d/conda.sh
+    conda init bash
+    . ~/.bashrc
+    
+    #create a new environment called basic
+    conda create --name basic python
+
+    #update some base stuff in basic
+    conda run -n basic apt-get update && apt-get install libgl1 gcc -y
+     
+    #now install most of the packages
+    conda run -n basic conda env update -n basic --file webapp/production.yml
+
+    conda run -n basic pip3 install --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+    
+    #install the mantis_shrimp library 
+    conda run -n basic pip3 install -e /mantisshrimp
+    conda clean --all
+    
+%runscript
+    . /opt/conda/etc/profile.d/conda.sh
+    bash ~/.bashrc
+    conda activate basic
+    python -m flask run --debug --port=5000 --host=0.0.0.0

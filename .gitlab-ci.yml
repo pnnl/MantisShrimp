@@ -1,0 +1,42 @@
+include:
+  - https://raw.githubusercontent.com/pnnl-miscscripts/gitlab-lib/v1/gitlab-lib.yaml
+
+variables:
+  APP_VERSION: v0.0.11
+
+stages:
+  - Development
+
+Build Dev Image:
+  stage: Development
+  extends: .pnnllib-gitlab-build-container-image
+  image:
+    name: devops-registry.pnnl.gov/rc-gitlab-services/container-image-caching/base-images/executor:v1.9.1-debug
+    entrypoint: [""]
+  only:
+    - tags
+  variables:
+    KANIKO_EXTRA_ARGS: "--compressed-caching=false"
+  script:
+    - mkdir -p /kaniko/.docker
+    - |-
+      KANIKOPROXYBUILDARGS=""
+      KANIKOCFG="{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo -n ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}"
+      if [ "x${HTTP_PROXY}" != "x" -o "x${HTTPS_PROXY}" != "x" ]; then
+        KANIKOCFG="${KANIKOCFG}, \"proxies\": { \"default\": { \"httpProxy\": \"${HTTP_PROXY}\", \"httpsProxy\": \"${HTTPS_PROXY}\", \"noProxy\": \"${NO_PROXY}\"}}"
+        KANIKOPROXYBUILDARGS="--build-arg http_proxy=${HTTP_PROXY} --build-arg HTTP_PROXY=${HTTP_PROXY} --build-arg https_proxy=${HTTPS_PROXY} --build-arg HTTPS_PROXY=${HTTPS_PROXY} --build-arg no_proxy=${NO_PROXY}"
+      fi
+      KANIKOCFG="${KANIKOCFG} }"
+      echo "${KANIKOCFG}" > /kaniko/.docker/config.json
+      if [ -f /etc/gitlab-runner/certs/ca.crt ]; then
+        cat /etc/gitlab-runner/certs/ca.crt >> /kaniko/ssl/certs/ca-certificates.crt
+      fi
+      DOCKERFILE="${DOCKERFILE:-Dockerfile}"
+      CONTAINER_TAG="${CONTAINER_TAG:-$CI_COMMIT_TAG}"
+      KANIKO_EXTRA_ARGS="${KANIKO_EXTRA_ARGS:-}"
+      echo
+      /kaniko/executor $KANIKOPROXYBUILDARGS --context "$CI_PROJECT_DIR" --dockerfile "$CI_PROJECT_DIR/$DOCKERFILE" --destination "$CI_REGISTRY_IMAGE${CONTAINER_PREFIX}:$CONTAINER_TAG" $KANIKO_EXTRA_ARGS
+  tags:
+    - k8s
+    - rcext
+    - mantisshrimp

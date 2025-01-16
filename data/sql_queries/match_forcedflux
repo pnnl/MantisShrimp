@@ -1,0 +1,6 @@
+select nb.distance * 60.0 as dstArcSec, ac.ra, ac.dec, cr.gFKronFlux, cr.rFKronFlux, cr.iFKronFlux, cr.zFKronFlux, cr.yFKronFlux, m.old_index
+INTO MyDB.MyTable_photo_matched
+from MyDB.MyTable AS m
+CROSS APPLY fGetNearestObjEq(m.ra, m.dec, 0.1) as nb
+JOIN ForcedMeanObject as cr on cr.objID=nb.objID
+JOIN AstrometryCorrection as ac on ac.objID=nb.objID

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css')}}"/>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
+    <title>Photometric Redshift Visualization</title>
+</head>
+<body>
+     <div id="wrap">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Mantis Shrimp Redshift Webapp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('about') }}" class="nav-link {% if about %}active{% endif %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://github.com/pnnl/MantisShrimp" class="nav-link {% if about %}active{% endif %}">Repository</a>
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container content-wrapper mt-5 mb-5">
+    <zero-md>
+      <!-- Write your markdown inside a `<script type="text/markdown">` tag -->
+      <script type="text/markdown">
+# About
+
+## Paper
+
+The Mantis Shrimp paper has been submitted for consideration as a journal article. You can find updated information about the paper on our [github repository](https://github.com/pnnl/MantisShrimp).
+
+## Use
+
+The Webapp is a simple form built using Python Flask; simply put in a name (used to tag the output files) a right ascension, and a declination. The webapp will query cutout services from external providers, prepare the data, then run those cutouts through a computer vision model. The output of that computer vision models is interpreted as a PDF (or PMF) allowing the extraction of point estimates plus errors, and could be used as a prior for downstream inference.
+
+Simply enter a RA and DEC in decimal degree form, and receive a photometric redshift!
+
+## Advanced
+
+In our advanced settings, we allow a user to specify whether or not to apply CalPIT recalibration to the resulting PDFs. CalPIT is a python package that uses a neural network to calibrate outputs of other networks performing conditional density estimation. We observed that for large swaths of feature space, CalPIT was effective at decreasing the statistical bias of our model. It is our oppinion more work needs to go into this field of calibration for machine learning uncertainty quantification, but the technical debt in this specific task will also soon be alleviated by more complete spectroscopic surveys.  
+
+We also provide a toggle between probability density function (PDF) output and probability mass function (PMF) output. In PDF mode, the entire area underneath the curve represented by the function must integrate to a value of 1. This is achieved through normalization of an interpolation of the output of the model. More natively, our model outputs a PMF, where the model output represents the probability that the given galaxy has a redshift in a narrow bin of redshift. Both options will retain the same overall "Shape" of the PDF and do not affect point or uncertainty estimates.
+
+## Limitations
+
+This computer vision model was trained on available spectroscopic data prior to major DESI releases (includes DESI early data release) -- that is to say, it was trained on (and evaluated with) a biased sample of galaxies. We are combining data from most major spectroscopic campaigns, including auxillary programs in SDSS E/BOSS that do not follow the standard targeting of giant red elliptical galaxies. This has some unknown effects: while it is well known that neural networks do not extrapolate well, it is unknown exactly how well they interpolate in low-density areas of feature space.
+
+Rather than limit what the user can request, we have opted to allow our network to perform inference at any location within the footprint of our telescopes-- even if the pointing does not have a discernable galaxy, if the galaxy would be considered outside our training sample, if the galaxy is blended with another object, or if the galaxy is obscured heavily by galactic dust from the milky-way. WE HAVE PLACED THE RESPONSIBILITY TO YOU, the user, to consider the context of the cutouts when evaluating whether our predictions should be trusted. If you can not discern your target galaxy in the center of the image, then our neural network will not provide an accurate photometric redshift.
+
+That being said, many pointing do not have any discernable flux in the Galex:UV bands. That is normal and reflective of our training set. Its a good rule of thumb to make sure that the galaxy is visible in the optical bands atleast.
+
+## Authors
+
+* Andrew Engel, The Ohio State University and Pacfic Northwest National Laboratory
+* Nell Byler, Pacific Northwest National Laboratory
+* Adam Tsou, John Hopkins University
+* Gautham Narayan, University of Illinois Urbana-Champaign
+* Emmanuel Bonilla, Pacific Northwest National Laboratory
+* Ian Smith, Pacific Northwest National Laboratory
+
+## Contact
+
+Please contact Andrew Engel for questions re. the project: andrew.william.engel@gmail.com
+
+## Availability
+
+Servers have cost: we expect PNNL will be able to fund this webapp until September 2025 thanks to a grant from NASA. After that, the webapp will need to be transferred to an external host.
+
+## Using our API to query the Mantis Shrimp model. 
+- You can query the database using curl. Here is an example of how to do so. 
+```
+curl -X POST -H "Content-Type: application/json" -d "{\"NAME\": 0, \"RA\": 197.614455643, \"DEC\": 18.438168854}" <THIS URL>/predict
+
+```
+- `curl` is a command for transfering data. 
+- `-X POST` specifies the HTTP method we are using--in this case, POST. 
+-  `-d` specifies the data we are sending to the model. We format the data in a dictionary object which can be processed by our model. The model takes three arguments: "Name" (an id for your request), "RA" (right ascension), and "DEC" (declination).
+- Finally, we provide the url to the API. 
+- We can also use the requests library to query the model. The following code snippet can be integrated into a python script for querying our model. The main advantage is that the requests library checks the website to see if the query was successful. 
+```
+import requests
+ 
+# URL of the Mantis Shrimp API (adjust if necessary)
+url = '<THIS URL>:5000/predict'
+ 
+# Prepare the data payload as a dictionary
+data = {"NAME": 0, "RA":197.614455643, "DEC": 18.438168854}  # Example: sending data to our API
+ 
+# Send the POST request
+response = requests.post(url, json=data)
+ 
+# Check if the request was successful
+if response.status_code == 200:
+    print("Success!")
+    print("Response data:", response.json())  # Print the response data from the server
+else:
+    print("Failed to retrieve data")
+    print("Status code:", response.status_code)
+    print("Response text:", response.text)  # Display response text which might contain the error
+```
+
+#### IMPORTANT! API access is limited to 10 requests per second.
+This is neccessary to prevent too many requests being sent to our partners providing the cutout services.
+
+## Using FFCV to speed up dataloading by up to 17x. 
+
+- We use MIT's FFCV module to speed up dataloading by **17x** compared to PyTorch's built in dataloader. 
+- This requires two steps: writing the dataset to FFCV's .beton files, and reading them using FFCV's own dataloader.
+- In order to write the dataset, we use FFCV's DatasetWriter module. Since we are writing numpy arrays, we use NDArrayFields and FloatFields in order to record the data. 
+- The first argument for DatasetWriter is a path to the .beton file it writes. The second argument is a dictionary where we assign variables to input data. The last argument we specify is the number of workers for this job. 
+- We have to specify the dimensions of each array we want to write, and we can do this using the field's "shape" parameter. 
+- In addition, we have to make sure that the datatype we write the data to matches our input. Since we are writing arrays with numpy float32's, we cast the input data as float32 arrays.
+- Below is an example of how we use FFCV to write our custom dataset for the Mantis Shrimp project. 
+          
+```          
+from ffcv.writer import DatasetWriter
+from ffcv.fields import NDArrayField, FloatField
+from mantis_shrimp import datasets
+import numpy as np
+
+for kind in ['train', 'val', 'test']:
+    for WORLD_RANK in range(16):
+        dataset = datasets.MantisShrimpDataset(kind, WORLD_RANK, ZMAX =1.6, loc = 'rcfs',to_torch = False, mmap = True)
+        writer = DatasetWriter(f'/{path}/mantis_shrimp_{kind}_{WORLD_RANK}.beton', {
+            'galex': NDArrayField(shape=(1, 2, 32, 32), dtype=np.dtype('float32')), 
+            'panstarrs': NDArrayField(shape=(1, 5, 170, 170), dtype=np.dtype('float32')),
+            'unwise': NDArrayField(shape=(1, 2, 32, 32), dtype=np.dtype('float32')),
+            'z': FloatField(),
+            'ebvs': NDArrayField(shape=(2,), dtype=np.dtype('float32')),
+            'zphot_MGS': NDArrayField(shape=(1,), dtype=np.dtype('float32')),
+            'zphot_WPS': NDArrayField(shape=(1,), dtype=np.dtype('float32')),
+        }, num_workers=16)
+        writer.from_indexed_dataset(dataset)     
+```
+- FFCV's loader module functions as a drop in replacement for PyTorch's built in dataloader object.
+- Additionally, FFCV has optimized certain subroutines such as converting from their file format to Torch tensors, as well as loading the data to a GPU. 
+- You can choose between a sequential, quasirandom and random ordering for the loader. Both sequential and quasirandom orderings load a few batches of data at a time and consume far less memory than the random ordering which loads the whole dataset in ram. 
+- We use NDArray and Float decoders in order to process the .beton files. 
+- It is important to make sure that the keys are the same as the ones used when writing the dataset. 
+```
+from ffcv.transforms import ToTensor, ToDevice
+from ffcv.loader import Loader, OrderOption
+from ffcv.fields.decoders import NDArrayDecoder, FloatDecoder
+PIPELINES = {
+  'galex': [NDArrayDecoder(), ToTensor(), ToDevice(torch.device('cuda'), non_blocking=True)],
+  'panstarrs': [NDArrayDecoder(), ToTensor()],
+  'unwise': [NDArrayDecoder(), ToTensor()],
+  'z' : [FloatDecoder(), ToTensor()],
+  'ebvs' : [NDArrayDecoder(), ToTensor()],
+  'zphot_MGS': [NDArrayDecoder(), ToTensor()],
+  'zphot_WPS': [NDArrayDecoder(), ToTensor()],
+}
+
+ORDERING = OrderOption.QUASI_RANDOM
+
+BATCH_SIZE = 32
+
+NUM_WORKERS = 8
+
+loader = Loader('{path}/test.beton',
+                batch_size=BATCH_SIZE,
+                num_workers=NUM_WORKERS,
+                order=ORDERING,
+                pipelines=PIPELINES)
+```
+- Installing FFCV may require tweaks depending on your environment. We found it helpful to install using the latest version of conda and compilers set equal to 1.2.0.
+
+      </script>
+    </zero-md>
+    </div>
+
+        <footer class="footer fixed-bottom container">
+          <div class="container">
+            <p>&copy; PNNL. All rights reserved.</p>
+    </footer>
+    </div> 
+</body>
+</html>    

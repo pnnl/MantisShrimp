@@ -1,0 +1,9 @@
+The CSFD dustmaps are re-distributed in this repository following the original license,
+reprinted below. The CSFD dustmaps are the work of Yi-Kuan Chiang, and are available
+at https://zenodo.org/records/8207175; we cite the work describing these maps in our
+manuscript.
+
+####
+(C) Yi-Kuan Chiang 2025
+
+Creative Commons Attribution 4.0 International

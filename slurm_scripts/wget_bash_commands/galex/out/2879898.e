@@ -1,0 +1,1 @@
+slurmstepd: error: *** JOB 2879898 ON dc177 CANCELLED AT 2023-10-09T08:44:37 ***

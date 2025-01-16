@@ -1,0 +1,141 @@
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+Nodelist:=  dl[09-10,12-13,15,17-19]
+Number of nodes:=  8
+Ntasks per node:= 
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+
+loaded modules
+
+No Modulefiles Currently Loaded.
+
+limits
+
+
+Environment Variables
+
+SLURM_NODELIST=dl[09-10,12-13,15,17-19]
+MODULE_VERSION_STACK=3.2.10
+SLURM_JOB_NAME=MS_train
+PDSHROOT=/opt/pdsh
+XDG_SESSION_ID=36523
+SLURMD_NODENAME=dl09
+SLURM_TOPOLOGY_ADDR=.hdr02.dl09
+HOSTNAME=dl09
+SLURM_PRIO_PROCESS=0
+SLURM_NODE_ALIASES=(null)
+SHELL=/bin/bash
+TERM=xterm-256color
+SLURM_JOB_QOS=paygo
+HISTSIZE=1000
+TMPDIR=/tmp
+SLURM_TOPOLOGY_ADDR_PATTERN=switch.switch.node
+SSH_CLIENT=130.20.197.236 51075 22
+QTDIR=/usr/lib64/qt-3.3
+SLURM_JOB_GPUS=0,1
+QTINC=/usr/lib64/qt-3.3/include
+SSH_TTY=/dev/pts/31
+ROCKSROOT=/opt/rocks/share/devel
+ANT_HOME=/opt/rocks
+QT_GRAPHICSSYSTEM_CHECKED=1
+ROCR_VISIBLE_DEVICES=0,1
+SLURM_NNODES=8
+USER=enge625
+LS_COLORS=rs=0:di=38;5;27:ln=38;5;51:mh=44;38;5;15:pi=40;38;5;11:so=38;5;13:do=38;5;5:bd=48;5;232;38;5;11:cd=48;5;232;38;5;3:or=48;5;232;38;5;9:mi=05;48;5;232;38;5;15:su=48;5;196;38;5;15:sg=48;5;11;38;5;16:ca=48;5;196;38;5;226:tw=48;5;10;38;5;16:ow=48;5;10;38;5;21:st=48;5;21;38;5;15:ex=38;5;34:*.tar=38;5;9:*.tgz=38;5;9:*.arc=38;5;9:*.arj=38;5;9:*.taz=38;5;9:*.lha=38;5;9:*.lz4=38;5;9:*.lzh=38;5;9:*.lzma=38;5;9:*.tlz=38;5;9:*.txz=38;5;9:*.tzo=38;5;9:*.t7z=38;5;9:*.zip=38;5;9:*.z=38;5;9:*.Z=38;5;9:*.dz=38;5;9:*.gz=38;5;9:*.lrz=38;5;9:*.lz=38;5;9:*.lzo=38;5;9:*.xz=38;5;9:*.bz2=38;5;9:*.bz=38;5;9:*.tbz=38;5;9:*.tbz2=38;5;9:*.tz=38;5;9:*.deb=38;5;9:*.rpm=38;5;9:*.jar=38;5;9:*.war=38;5;9:*.ear=38;5;9:*.sar=38;5;9:*.rar=38;5;9:*.alz=38;5;9:*.ace=38;5;9:*.zoo=38;5;9:*.cpio=38;5;9:*.7z=38;5;9:*.rz=38;5;9:*.cab=38;5;9:*.jpg=38;5;13:*.jpeg=38;5;13:*.gif=38;5;13:*.bmp=38;5;13:*.pbm=38;5;13:*.pgm=38;5;13:*.ppm=38;5;13:*.tga=38;5;13:*.xbm=38;5;13:*.xpm=38;5;13:*.tif=38;5;13:*.tiff=38;5;13:*.png=38;5;13:*.svg=38;5;13:*.svgz=38;5;13:*.mng=38;5;13:*.pcx=38;5;13:*.mov=38;5;13:*.mpg=38;5;13:*.mpeg=38;5;13:*.m2v=38;5;13:*.mkv=38;5;13:*.webm=38;5;13:*.ogm=38;5;13:*.mp4=38;5;13:*.m4v=38;5;13:*.mp4v=38;5;13:*.vob=38;5;13:*.qt=38;5;13:*.nuv=38;5;13:*.wmv=38;5;13:*.asf=38;5;13:*.rm=38;5;13:*.rmvb=38;5;13:*.flc=38;5;13:*.avi=38;5;13:*.fli=38;5;13:*.flv=38;5;13:*.gl=38;5;13:*.dl=38;5;13:*.xcf=38;5;13:*.xwd=38;5;13:*.yuv=38;5;13:*.cgm=38;5;13:*.emf=38;5;13:*.axv=38;5;13:*.anx=38;5;13:*.ogv=38;5;13:*.ogx=38;5;13:*.aac=38;5;45:*.au=38;5;45:*.flac=38;5;45:*.mid=38;5;45:*.midi=38;5;45:*.mka=38;5;45:*.mp3=38;5;45:*.mpc=38;5;45:*.ogg=38;5;45:*.ra=38;5;45:*.wav=38;5;45:*.axa=38;5;45:*.oga=38;5;45:*.spx=38;5;45:*.xspf=38;5;45:
+ROCKS_ROOT=/opt/rocks
+SLURM_JOBID=5754289
+SALLOC_KILL_CMD=9
+SPS_HOME=/rcfs/projects/pinn4photoz/prospector/fsps
+SYSTEM_NAME=deception
+SLURM_TASKS_PER_NODE=16(x8)
+PATH=/usr/lib64/qt-3.3/bin:/people/scicons/deception/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/ganglia/bin:/opt/ganglia/sbin:/opt/ibutils/bin:/opt/pdsh/bin:/opt/rocks/bin:/opt/rocks/sbin:/opt/dell/srvadmin/bin:/people/enge625/.local/bin:/people/enge625/bin
+MAIL=/var/spool/mail/enge625
+MODULE_VERSION=3.2.10
+SLURM_WORKING_CLUSTER=deception:rc-admin01:6817:9216:101
+SLURM_CONF=/etc/slurm/slurm.conf
+SLURM_JOB_ID=5754289
+SLURM_JOB_USER=enge625
+PWD=/rcfs/projects/mantis_shrimp/mantis_shrimp/slurm_scripts/train_V1p3
+CUDA_VISIBLE_DEVICES=0,1
+JAVA_HOME=/usr/java/latest
+LANG=en_US.UTF-8
+MODULEPATH=/share/apps/modules/Modules/versions:$MODULESHOME/modulefiles/environment:$MODULESHOME/modulefiles/development/mpi:$MODULESHOME/modulefiles/development/mlib:$MODULESHOME/modulefiles/development/compilers:$MODULESHOME/modulefiles/development/tools:$MODULESHOME/modulefiles/apps:$MODULESHOME/modulefiles/libs
+NCCL_P2P_DISABLE=1
+SLURM_JOB_UID=277819
+LOADEDMODULES=
+SLURM_NODEID=0
+SLURM_SUBMIT_DIR=/rcfs/projects/mantis_shrimp/mantis_shrimp/slurm_scripts/train_V1p3
+SLURM_TASK_PID=9956
+SLURM_CPUS_ON_NODE=16
+SLURM_PROCID=0
+ENVIRONMENT=BATCH
+KRB5CCNAME=KEYRING:persistent:277819
+HISTCONTROL=ignoredups
+SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+SLURM_JOB_NODELIST=dl[09-10,12-13,15,17-19]
+HOME=/people/enge625
+SHLVL=2
+SLURM_LOCALID=0
+SLURM_JOB_GID=100
+SLURM_JOB_CPUS_PER_NODE=16(x8)
+SLURM_CLUSTER_NAME=deception
+ROLLSROOT=/opt/rocks/share/devel/src/roll
+SLURM_GTIDS=0
+SLURM_SUBMIT_HOST=marianas.pnl.gov
+SLURM_JOB_PARTITION=dl
+LOGNAME=enge625
+CVS_RSH=ssh
+QTLIB=/usr/lib64/qt-3.3/lib
+GPU_DEVICE_ORDINAL=0,1
+SLURM_JOB_ACCOUNT=mantis_shrimp
+SSH_CONNECTION=130.20.197.236 51075 130.20.68.57 22
+XDG_DATA_DIRS=/people/enge625/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+SLURM_JOB_NUM_NODES=8
+MODULESHOME=/share/apps/modules/Modules/3.2.10
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+XDG_RUNTIME_DIR=/run/user/277819
+BASH_FUNC_module()=() {  eval `/share/apps/modules/Modules/$MODULE_VERSION/bin/modulecmd bash $*`
+}
+_=/usr/bin/printenv
+Node IP: 172.16.120.88
+free port: 50797
+run.py fresh arguments:  172.16.120.88:50797
+run.py believes it should be returning the set rdzv_endpoint:  172.16.120.88:50797
+run.py rdzv endpoint:  172.16.120.88:50797
+backend:  c10d
+am returning none none for ip and port, which seems dumb
+run.py fresh arguments:  172.16.120.88:50797
+run.py believes it should be returning the set rdzv_endpoint:  172.16.120.88:50797
+run.py rdzv endpoint:  172.16.120.88:50797
+backend:  c10d
+am returning none none for ip and port, which seems dumb
+run.py fresh arguments:  172.16.120.88:50797
+run.py believes it should be returning the set rdzv_endpoint:  172.16.120.88:50797
+run.py rdzv endpoint:  172.16.120.88:50797
+backend:  c10d
+am returning none none for ip and port, which seems dumb
+run.py fresh arguments:  172.16.120.88:50797
+run.py believes it should be returning the set rdzv_endpoint:  172.16.120.88:50797
+run.py rdzv endpoint:  172.16.120.88:50797
+backend:  c10d
+am returning none none for ip and port, which seems dumb
+run.py fresh arguments:  172.16.120.88:50797
+run.py believes it should be returning the set rdzv_endpoint:  172.16.120.88:50797
+run.py rdzv endpoint:  172.16.120.88:50797
+backend:  c10d
+am returning none none for ip and port, which seems dumb
+run.py fresh arguments:  172.16.120.88:50797
+run.py believes it should be returning the set rdzv_endpoint:  172.16.120.88:50797
+run.py rdzv endpoint:  172.16.120.88:50797
+backend:  c10d
+am returning none none for ip and port, which seems dumb
+run.py fresh arguments:  172.16.120.88:50797
+run.py believes it should be returning the set rdzv_endpoint:  172.16.120.88:50797
+run.py rdzv endpoint:  172.16.120.88:50797
+backend:  c10d
+am returning none none for ip and port, which seems dumb
+run.py fresh arguments:  172.16.120.88:50797
+run.py believes it should be returning the set rdzv_endpoint:  172.16.120.88:50797
+run.py rdzv endpoint:  172.16.120.88:50797
+backend:  c10d
+am returning none none for ip and port, which seems dumb
+All Done!

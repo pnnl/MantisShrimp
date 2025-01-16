@@ -1,0 +1,6 @@
+select nb.distance * 60.0 as dstArcSec, cr.raMean, cr.decMean, cr.cellDistance_Photoz,
+cr.z_phot0, cr.z_phot, cr.z_photErr, cr.prob_Galaxy, cr.prob_Star, cr.prob_QSO, m.photoObjID_survey
+INTO MyDB.MyTable_7c
+from MyDB.MyTable_7 AS m
+CROSS APPLY dbo.fGetNearbyObjEq(m.ra, m.dec, 0.1) as nb
+JOIN dbo.catalogRecordRowStore as cr on nb.objID=cr.objID

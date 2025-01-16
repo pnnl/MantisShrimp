@@ -1,0 +1,33 @@
+name: production
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - cpuonly
+  - python=3.12
+  - pytorch=2.5.1=py3.12_cpu_0
+  - pip
+  - numpy
+  - scipy
+  - pandas
+  - flask
+  - requests
+  - typing_extensions
+  - matplotlib
+  - pip:
+    - --extra-index-url=https://download.pytorch.org/whl/cpu #this informs pip to check here for packages
+    - torch==2.5.1+cpu #have to pin the torch we want so timm doesn't pull cuda libraries.
+    - torchvision==0.20.1+cpu
+    - astropy
+    - dustmaps
+    - tqdm
+    - opencv-python
+    - flask-limiter
+    - sep-pjw
+    - einops
+    - timm
+    - requests
+    - urllib3
+    - calpit
+    - spline-basis

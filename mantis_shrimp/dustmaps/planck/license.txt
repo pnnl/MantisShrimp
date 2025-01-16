@@ -1,0 +1,15 @@
+Planck data is re-distributed in this repository under the following terms.
+
+Data hosted in the ESA Space Science Archives are distributed under the CC BY-NC 3.0 IGO licence. Access to, and use of, these data constitute acceptance by you (hereinafter the User) of the following Terms and Conditions:
+
+Raw and Calibrated Data (hereafter Data) deriving from satellites flown in the framework of an Agency Programme and contained in the ESA Space Science Archives, as well as analysed data and higher-level science products (hereafter Data Products) contained in the ESA Space Science Archives, are open and free to use by the User subject to proper acknowledgment to be given in accordance with the credit lines provided below.
+Prior to any commercial use by the User of any Data or Data Product, including any use or application that directly or indirectly generates a financial gain, a request for authorisation/licence shall be made by the User by contacting the ESA Legal Services Department by calling the ESA switchboard on +33 1 5369 7654.
+The User shall not use Data or Data Products to state or imply the endorsement by ESA or by any ESA employee of a commercial product, service, or activity, or used in any misleading manner.
+ESA does not provide any warranties to the User with respect to the accuracy of information contained in Data and/or Data Products nor that such Data or Data Product are suitable for the required use.
+ESA does not indemnify, hold harmless, nor release the User of any Data or Data Products from copyright infringement, nor grant exclusive rights to use with respect to Data or Data Products.
+ESA assumes no liability in respect of the use of Data and Data Products, contained in the ESA Science Archives and shall be held harmless for any and all direct and indirect alleged damages deriving from access to or use of such Data and Data Products.
+Without any prejudice to the ESA Convention, especially its Annex I on Privileges and Immunities, these Terms and Conditions shall be governed and interpreted in accordance with the laws of France. Any dispute arising out of, or in connection with these Terms and Conditions that cannot be settled amicably within thirty days from the notification of the dispute by one party to the other shall be finally settled under the Rules of Arbitration of the International Chamber of Commerce by an arbitrator appointed in accordance with the said Rules. The language of arbitration shall be English. The place of arbitration shall be Paris, France.
+
+ 
+
+The Terms and Conditions for the use of data in the ESA Space Science Archives require users to acknowledge ESA and other providers of the data by means of mission-specific credit lines as indicated below. The acronym PI corresponds to Principal Investigator.
