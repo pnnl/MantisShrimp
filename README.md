@@ -1,16 +1,11 @@
-# Mantis Shrimp
-<div style="text-align: center;">
-    <img src="images/MSlogo.png" alt="Mantis Shrimp Logo" style="width: 50%;">
-</div>
+[![arXiv](https://img.shields.io/badge/arXiv-2501.09112-B31B1B.svg)](https://arxiv.org/abs/2501.09112)
 
+# Mantis Shrimp
+<p align="center">
+    <img src="images/MSlogo.png" alt="Mantis Shrimp Logo" width="300">
+</p>
 
 Mantis Shrimp is a computer vision model for photometric redshift estimation in the Northern sky (DEC > -30). This repository houses the model weights, a pip installable package to enable integration with existing projects, a Docker build script to run a local webapp server, jupyter notebooks demonstrating the training of Mantis Shrimp for reproducibility, tutorials in deep learning for astronomy (coming soon), and associated artifacts.  
-
-## WebApp Demo
-<div style="text-align: center;">
-    <img src="images/MantisShrimpDemo.gif" alt="Demo of WebApp Gif" style="width: 200%; height: auto;">
-</div>
-
 
 ## Installation Options
 
@@ -97,8 +92,9 @@ docker run -p 5000:5000 mantisshrimp
 This will launch a flask webapp server accessible from any webrowser by navigating to localhost:5000. The webapp has a simple interface that allows you to enter any astrometry one-at-a-time and returns a visualization of the PDF of redshift as well as the cutouts from PanSTARRs, WISE, and GALEX at those coordinates.
 
 ## Querying the webapp via API
-Once the Webapp is running locally, you can actually ignore installing Mantis Shrimp and simply query an API at the WebApp address. While PNNL runs the Mantis Shrimp server (Before September 2025) you can also query the API at that address as well.
+Once the Webapp is running locally, you can actually ignore installing Mantis Shrimp and simply query an API at the WebApp address. PNNL will host a WebApp that you could query against; however, that app will be temporary (ends in September 2025). Users who want stability should consider deploying the server locally to query against a static address or perform the full installation.
 
+To perform a query of the WebApp you can use the Python requests library
 ```python
 import requests
  
