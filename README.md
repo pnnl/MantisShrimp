@@ -1,3 +1,5 @@
+[![arXiv](https://img.shields.io/badge/arXiv-2501.09112-B31B1B.svg)](https://arxiv.org/abs/2501.09112)
+
 # Mantis Shrimp
 <p align="center">
     <img src="images/MSlogo.png" alt="Mantis Shrimp Logo" width="300">
