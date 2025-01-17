@@ -90,8 +90,9 @@ docker run -p 5000:5000 mantisshrimp
 This will launch a flask webapp server accessible from any webrowser by navigating to localhost:5000. The webapp has a simple interface that allows you to enter any astrometry one-at-a-time and returns a visualization of the PDF of redshift as well as the cutouts from PanSTARRs, WISE, and GALEX at those coordinates.
 
 ## Querying the webapp via API
-Once the Webapp is running locally, you can actually ignore installing Mantis Shrimp and simply query an API at the WebApp address. While PNNL runs the Mantis Shrimp server (Before September 2025) you can also query the API at that address as well.
+Once the Webapp is running locally, you can actually ignore installing Mantis Shrimp and simply query an API at the WebApp address. PNNL will host a WebApp that you could query against; however, that app will be temporary (ends in September 2025). Users who want stability should consider deploying the server locally to query against a static address or perform the full installation.
 
+To perform a query of the WebApp you can use the Python requests library
 ```python
 import requests
  
