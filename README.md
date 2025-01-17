@@ -7,6 +7,12 @@
 
 Mantis Shrimp is a computer vision model for photometric redshift estimation in the Northern sky (DEC > -30). This repository houses the model weights, a pip installable package to enable integration with existing projects, a Docker build script to run a local webapp server, jupyter notebooks demonstrating the training of Mantis Shrimp for reproducibility, tutorials in deep learning for astronomy (coming soon), and associated artifacts.  
 
+## WebApp Demonstration
+<p align="center">
+    <img src="images/MantisShrimpDemo.gif" alt="Mantis Shrimp Demo" width="700">
+</p>
+See below for instructions on building WebApp using Docker. Our deployment of WebApp coming soon!
+
 ## Installation Options
 
 
