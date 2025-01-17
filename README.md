@@ -1,6 +1,12 @@
 # Mantis Shrimp
 
+![Mantis Shrimp Logo](images/MSlogo.png)
+
 Mantis Shrimp is a computer vision model for photometric redshift estimation in the Northern sky (DEC > -30). This repository houses the model weights, a pip installable package to enable integration with existing projects, a Docker build script to run a local webapp server, jupyter notebooks demonstrating the training of Mantis Shrimp for reproducibility, tutorials in deep learning for astronomy (coming soon), and associated artifacts.  
+
+## WebApp Demo
+
+![Gif of WebApp demonstration](images/MantisShrimpDemo.gif)
 
 ## Installation Options
 
@@ -138,21 +144,14 @@ http://pla.esac.esa.int/pla/aio/product-action?MAP.MAP_ID=HFI_CompMap_ThermalDus
 ## Citation
 If you find our paper helpful or use the Mantis Shrimp model or webapp in your research, consider citing our paper:
 ```bash
-@ARTICLE{2024arXiv240203535E,
-       author = {{Engel}, Andrew and {Narayan}, Gautham and {Byler}, Nell},
-        title = "{Preliminary Report on Mantis Shrimp: a Multi-Survey Computer Vision Photometric Redshift Model}",
-      journal = {arXiv e-prints},
-     keywords = {Astrophysics - Instrumentation and Methods for Astrophysics, Computer Science - Artificial Intelligence},
-         year = 2024,
-        month = feb,
-          eid = {arXiv:2402.03535},
-        pages = {arXiv:2402.03535},
-          doi = {10.48550/arXiv.2402.03535},
-archivePrefix = {arXiv},
-       eprint = {2402.03535},
- primaryClass = {astro-ph.IM},
-       adsurl = {https://ui.adsabs.harvard.edu/abs/2024arXiv240203535E},
-      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+@ARTICLE{mantisshrimpengel,
+      title={Mantis Shrimp: Exploring Photometric Band Utilization in Computer Vision Networks for Photometric Redshift Estimation}, 
+      author={Andrew Engel and Nell Byler and Adam Tsou and Gautham Narayan and Emmanuel Bonilla and Ian Smith},
+      year={2025},
+      eprint={2501.09112},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2501.09112}, 
 }
 ```
 
