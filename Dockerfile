@@ -18,7 +18,7 @@ WORKDIR /$FILE_PATH/webapp
 
 # Copy environment file and install dependencies
 COPY . /$FILE_PATH
-RUN conda run -n $ENV_NAME conda env update -n $ENV_NAME --file production.yml
+RUN conda run -n $ENV_NAME conda env update -n $ENV_NAME --file ../production.yml
 
 # Install PyTorch, torchvision, and additional dependencies
 RUN apt-get update && apt-get install -y libgl1 gcc && \

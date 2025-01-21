@@ -1,4 +1,4 @@
-name: torch2.3_new
+name: MantisShrimpDevelop
 channels:
   - pytorch
   - nvidia

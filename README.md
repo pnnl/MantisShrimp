@@ -7,54 +7,74 @@
 
 Mantis Shrimp is a computer vision model for photometric redshift estimation in the Northern sky (DEC > -30). This repository houses the model weights, a pip installable package to enable integration with existing projects, a Docker build script to run a local webapp server, jupyter notebooks demonstrating the training of Mantis Shrimp for reproducibility, tutorials in deep learning for astronomy (coming soon), and associated artifacts.  
 
+## Windows Limitation
+
+Mantis Shrimp is (implicitly) dependent upon the [healpy](https://github.com/healpy/healpy) library. Healpy does not currently [support Windows](https://github.com/healpy/healpy/issues/25). Running the installation on a Windows machine will therefore fail.
+
+Windows users can still use Docker to build the WebApp or run our environment within an interactive container.
+
+## Running the Flask WebApp using Docker
+To run the webapp, we include a Dockerfile:
+```bash
+docker build . -t mantisshrimp
+docker run -p 5000:5000 mantisshrimp
+```
+This will launch a flask webapp server accessible from any webrowser by navigating to localhost:5000. The webapp has a simple interface that allows you to enter any astrometry one-at-a-time and returns a visualization of the PDF of redshift as well as the cutouts from PanSTARRs, WISE, and GALEX at those coordinates.
+
+**NOTE: Users should set the gunicorn -w parameter to control the number of workers spawned for running the server.** Most users who are simply testing the server or making quick redshift estimates should choose $N_WORKERS=1. See line 40 of the Dockerfile:
+```bash
+CMD ["bash", "-c", "source activate $ENV_NAME && gunicorn -w $N_WORKERS -b 0.0.0.0:5000 app:app"]
+```
+
 ## Installation Options
+This repository serves multiple purposes: our intent is to support users who want to run the mantis shrimp model in inference mode as well as support users who want to re-train the model. We therefore discuss multiple installation options:
 
-
-#### Package Only
-To install the Mantis Shrimp package (without dependencies)
-
+#### Users who want to run the model:
+To install Mantis Shrimp with dependencies for inference mode only:
 ```bash
 git clone https://github.com/pnnl/MantisShrimp.git
 cd mantisshrimp
-pip install .
-```
-
-#### Full Development Environment
-To install all neccessary dependecies for reproducibility of our experiments, we include an environment.yml file that provides our exact virtual environemt and can be installed with conda. **One then needs to install the [FFCV](https://github.com/libffcv/ffcv) package seperately to run our training scripts.**
-```bash
-git clone https://github.com/pnnl/MantisShrimp.git
-cd mantisshrimp
-conda env create --name $MY_ENV --file environment.yaml
-conda activate $MY_ENV
-pip install .
-```
-
-#### Webapp/Production Environment
-We also include a more relaxed and CPU only version of the dependencies, which likely makes running our pipeline and integration with other tools easier.
-
-```bash
-git clone https://github.com/pnnl/MantisShrimp.git
-cd mantisshrimp/webapp
-conda env create --name $MY_ENV --file production.yaml
+conda env create --name $MY_ENV --file production.yml
 conda activate $MY_ENV
 cd ..
 pip install .
 ```
 
-## Pipeline Tutorial
-Mantis Shrimp is a computer vision model, so using it on new data requires querying external servers for image cutouts. **WARNING: querying external services requires an Internet connection and can be a point of failure.** 
+#### Users who want to train the model:
+To install our **exact** training environemnt for reproducibility and training:
+```bash
+git clone https://github.com/pnnl/MantisShrimp.git
+cd mantisshrimp/run
+conda env create --name $MY_ENV --file environment.yml
+conda activate $MY_ENV
+pip install .
+```
+**One then needs to install the [FFCV](https://github.com/libffcv/ffcv) package seperately to run our training scripts.**
 
-We include minimal pipeline command that allows the user simply provide astrometric coordinates and will return the photometric redshift.
+#### Package Only
+To install the Mantis Shrimp package (without dependencies)
+```bash
+git clone https://github.com/pnnl/MantisShrimp.git
+cd mantisshrimp
+pip install .
+```
+
+## Tutorial
+Mantis Shrimp is a computer vision model, so using it on new data requires querying external servers for image cutouts. **WARNING: querying external services requires an internet connection and can be a point of failure.** 
+
+We include a minimal pipeline command that allows the user to provide coordinates and will return the photometric redshift.
 
 ```python
 
 from mantis_shrimp import pipeline
 from mantis_shrimp import models
+import matplotlib.pyplot as plt
+import os
 
 DEVICE = 'cpu' #pytorch device string; could set to 'cuda'
-RA = 120.00 #decimal degress
-DEC = 60.00 #decimal degrees
-USER_INDEX = 0 #arbitrary index used in metdata
+RA = 197.6144 #decimal degress
+DEC = 18.4381 #decimal degrees
+USER_INDEX = 0 #arbitrary index used in metadata
 SAVEPATH = '/tmp/mantisshrimp/' #create a storage solution for downloaded cutout fits
 
 #attempt to create the path if it doesn't exist already
@@ -83,22 +103,13 @@ plt.plot(class_bins,PDF)
 plt.show()
 ```
 
-## Running the Flask webapp using containers
-To run the webapp, we include a Dockerfile:
-```bash
-docker build . -t mantisshrimp
-docker run -p 5000:5000 mantisshrimp
-```
-This will launch a flask webapp server accessible from any webrowser by navigating to localhost:5000. The webapp has a simple interface that allows you to enter any astrometry one-at-a-time and returns a visualization of the PDF of redshift as well as the cutouts from PanSTARRs, WISE, and GALEX at those coordinates.
-
 ## Querying the webapp via API
-Once the Webapp is running locally, you can actually ignore installing Mantis Shrimp and simply query an API at the WebApp address. PNNL will host a WebApp that you could query against; however, that app will be temporary (ends in September 2025). Users who want stability should consider deploying the server locally to query against a static address or perform the full installation.
+Once the Webapp is running locally, you can actually ignore installing Mantis Shrimp entirely and simply query an API at the WebApp address. While PNNL runs the Mantis Shrimp server (Before September 2025) you can also query the API at that address.
 
-To perform a query of the WebApp you can use the Python requests library
 ```python
 import requests
  
-# URL of the Mantis Shrimp API (adjust if necessary)
+# URL of the Mantis Shrimp API
 url = 'localhost:5000/predict'
  
 # Prepare the data payload as a dictionary
