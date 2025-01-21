@@ -39,7 +39,7 @@ This repository serves multiple purposes: our intent is to support users who wan
 To install Mantis Shrimp with dependencies for inference mode only:
 ```bash
 git clone https://github.com/pnnl/MantisShrimp.git
-cd mantisshrimp
+cd MantisShrimp
 conda env create --name $MY_ENV --file production.yml
 conda activate $MY_ENV
 pip install .
@@ -49,7 +49,7 @@ pip install .
 To install our **exact** training environemnt for reproducibility and training:
 ```bash
 git clone https://github.com/pnnl/MantisShrimp.git
-cd mantisshrimp/run
+cd MantisShrimp/run
 conda env create --name $MY_ENV --file environment.yml
 conda activate $MY_ENV
 cd ..
@@ -61,7 +61,7 @@ pip install .
 To install the Mantis Shrimp package (without dependencies)
 ```bash
 git clone https://github.com/pnnl/MantisShrimp.git
-cd mantisshrimp
+cd MantisShrimp
 pip install .
 ```
 
