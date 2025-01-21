@@ -42,7 +42,6 @@ git clone https://github.com/pnnl/MantisShrimp.git
 cd mantisshrimp
 conda env create --name $MY_ENV --file production.yml
 conda activate $MY_ENV
-cd ..
 pip install .
 ```
 
@@ -53,6 +52,7 @@ git clone https://github.com/pnnl/MantisShrimp.git
 cd mantisshrimp/run
 conda env create --name $MY_ENV --file environment.yml
 conda activate $MY_ENV
+cd ..
 pip install .
 ```
 **One then needs to install the [FFCV](https://github.com/libffcv/ffcv) package seperately to run our training scripts.**
