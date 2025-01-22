@@ -11,7 +11,7 @@ Mantis Shrimp is a computer vision model for photometric redshift estimation in 
 <p align="center">
     <img src="images/MantisShrimpDemo.gif" alt="Mantis Shrimp Demo" width="700">
 </p>
-See below for instructions on building WebApp using Docker. Our deployment of WebApp coming soon!
+See below for instructions on building webapp using Docker. Our deployment of webapp coming soon!
 
 ## Windows Limitation
 
@@ -25,7 +25,7 @@ To run the webapp, we include a Dockerfile:
 docker build . -t mantisshrimp
 docker run -p 5000:5000 mantisshrimp
 ```
-This will launch a flask webapp server accessible from any webrowser by navigating to localhost:5000. The webapp has a simple interface that allows you to enter any astrometry one-at-a-time and returns a visualization of the PDF of redshift as well as the cutouts from PanSTARRs, WISE, and GALEX at those coordinates.
+This will launch a flask webapp server accessible from any web browser by navigating to localhost:5000. The webapp has a simple interface that allows you to enter any sky-coordinates one-at-a-time and returns a visualization of the PDF of redshift as well as the cutouts from PanSTARRs, WISE, and GALEX at those coordinates, with an option to donwload the cutout and PDF.
 
 **NOTE: Users should set the gunicorn -w parameter to control the number of workers spawned for running the server.** Most users who are simply testing the server or making quick redshift estimates should choose $N_WORKERS=1. See line 40 of the Dockerfile:
 ```bash
@@ -56,6 +56,7 @@ cd ..
 pip install .
 ```
 **One then needs to install the [FFCV](https://github.com/libffcv/ffcv) package seperately to run our training scripts.**
+**One then also needs to download the dataset via Glubus and [PNNL's DataHub](https://data.pnnl.gov/group/nodes/dataset/33966).**
 
 #### Package Only
 To install the Mantis Shrimp package (without dependencies)
