@@ -1,41 +1,41 @@
-# Use the Miniconda3 base image
-FROM continuumio/miniconda3
+# Use the lightweight Micromamba base image
+FROM mambaorg/micromamba:1.5.6
 
 # Set environment variables
 ENV ENV_NAME=basic
 ENV FILE_PATH=env
-ENV PATH=/opt/conda/bin:$PATH
+# Install Micromamba in a writable location
+ENV MAMBA_ROOT_PREFIX=/home/mambauser/micromamba  
+ENV PATH=$MAMBA_ROOT_PREFIX/bin:$PATH
 
-# Use bash shell for subsequent commands
-SHELL ["/bin/bash", "-c"]
+# Set the working directory to the user's home (writable)
+WORKDIR /home/mambauser
 
-# Initialize Conda for bash shell and create the environment
-RUN conda init bash && . ~/.bashrc && \
-    conda create --name $ENV_NAME python
+# Switch to the default non-root user provided by Micromamba
+USER mambauser
+
+# Copy only the environment file first to optimize caching
+COPY --chown=mambauser:mambauser production.yml /home/mambauser/production.yml
+
+# Create the environment in the writable user directory
+RUN micromamba create -y -n $ENV_NAME -c conda-forge python=3.12 && \
+    micromamba install -y -n $ENV_NAME -c conda-forge --file /home/mambauser/production.yml && \
+    micromamba clean --all
 
 # Set the working directory for the web application
-WORKDIR /$FILE_PATH/webapp
+WORKDIR /home/mambauser/$FILE_PATH/webapp
 
-# Copy environment file and install dependencies
-COPY . /$FILE_PATH
-RUN conda run -n $ENV_NAME conda env update -n $ENV_NAME --file ../production.yml
+# Copy the rest of the application (with correct permissions)
+COPY --chown=mambauser:mambauser . /home/mambauser/$FILE_PATH
 
-# Install PyTorch, torchvision, and additional dependencies
-RUN apt-get update && apt-get install -y libgl1 gcc && \
-    conda clean --all
+# Install the application using the newly created environment
+RUN micromamba run -n $ENV_NAME pip install -e /home/mambauser/$FILE_PATH
 
-# Initialize Conda in the environment at runtime and download necessary files
-RUN . /opt/conda/etc/profile.d/conda.sh
-# Install the application; using -e will link this version onto our pythonpath instead
-# of copying all our model weights and dustmaps files. This should save a few Gb.
-RUN conda run -n $ENV_NAME pip install -e /$FILE_PATH
-#for deployment of the server, use a manager like gunicorn rather than flask
-RUN conda run -n $ENV_NAME pip install gunicorn
+# Install gunicorn for production deployment
+RUN micromamba run -n $ENV_NAME pip install gunicorn
 
 # Expose port 5000 for the Flask application
 EXPOSE 5000
 
-# Set the entrypoint to activate the Conda environment and run the Flask application
-# the -w below is workers, so be careful to consider the resources we have alotted the server
-CMD ["bash", "-c", "source activate $ENV_NAME && gunicorn -w 1 -b 0.0.0.0:5000 app:app"]
-#CMD ["bash", "-c", "source activate $ENV_NAME && python -m flask run --port=5000 --host=0.0.0.0"]
+# Set the entrypoint to activate the environment and start the web server
+ENTRYPOINT ["/bin/bash", "-c", "micromamba run -n $ENV_NAME gunicorn -w 1 -b 0.0.0.0:5000 app:app"]
