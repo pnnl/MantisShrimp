@@ -37,5 +37,5 @@ EXPOSE 5000
 
 # Set the entrypoint to activate the Conda environment and run the Flask application
 # the -w below is workers, so be careful to consider the resources we have alotted the server
-CMD ["bash", "-c", "source activate $ENV_NAME && gunicorn -w 4 -b 0.0.0.0:5000 app:app"]
+CMD ["bash", "-c", "source activate $ENV_NAME && gunicorn -w 1 -b 0.0.0.0:5000 app:app"]
 #CMD ["bash", "-c", "source activate $ENV_NAME && python -m flask run --port=5000 --host=0.0.0.0"]
