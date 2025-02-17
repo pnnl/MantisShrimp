@@ -12,8 +12,6 @@ RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y git python3 python3-pip 
 
-RUN pip install gunicorn
-
 # Set the working directory to the user's home (writable)
 WORKDIR /home/mambauser
 
@@ -36,9 +34,14 @@ COPY --chown=mambauser:mambauser . /home/mambauser/env
 # Install the application using the newly created environment
 RUN micromamba run -n $ENV_NAME pip install -e /home/mambauser/env
 
+#finally install gunicorn under the same environment
+RUN micromamba run -n $ENV_NAME pip install gunicorn
+
+# Set the working directory to the user's home (writable)
+WORKDIR /home/mambauser/env/webapp
+
 # Expose port 5000 for the Flask application
 EXPOSE 5000
 
-
 # Set the entrypoint to activate the environment and start the web server
-# ENTRYPOINT ["/bin/bash", "-c", "micromamba run -n $ENV_NAME gunicorn -w 1 -b 0.0.0.0:5000 app:app"]
+ENTRYPOINT ["/bin/bash", "-c", "micromamba run -n $ENV_NAME gunicorn -w 1 -b 0.0.0.0:5000 app:app"]
