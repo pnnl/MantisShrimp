@@ -22,6 +22,7 @@ Windows users can still use Docker to build the WebApp or run our environment wi
 ## Running the Flask WebApp using Docker
 To run the webapp, we include a Dockerfile:
 ```bash
+git lfs install
 git lfs pull
 docker build . -t mantisshrimp
 docker run -p 5000:5000 mantisshrimp
