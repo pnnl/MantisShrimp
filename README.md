@@ -22,6 +22,8 @@ Windows users can still use Docker to build the WebApp or run our environment wi
 ## Running the Flask WebApp using Docker
 To run the webapp, we include a Dockerfile:
 ```bash
+git lfs install
+git lfs pull
 docker build . -t mantisshrimp
 docker run -p 5000:5000 mantisshrimp
 ```
@@ -38,9 +40,12 @@ This repository serves multiple purposes: our intent is to support users who wan
 #### Users who want to run the model:
 To install Mantis Shrimp with dependencies for inference mode only:
 ```bash
+# If you have just installed git-lfs, you may need to run `git lfs install` before `git lfs pull`
 git clone https://github.com/pnnl/MantisShrimp.git
 cd MantisShrimp
-conda env create --name $MY_ENV --file production.yml
+git lfs pull
+conda install -n base -c conda-forge mamba
+mamba env create --name $MY_ENV --file production.yml
 conda activate $MY_ENV
 pip install .
 ```
@@ -50,9 +55,11 @@ To install our **exact** training environemnt for reproducibility and training:
 ```bash
 git clone https://github.com/pnnl/MantisShrimp.git
 cd MantisShrimp/run
-conda env create --name $MY_ENV --file environment.yml
+conda install -n base -c conda-forge mamba
+mamba env create --name $MY_ENV --file environment.yml
 conda activate $MY_ENV
 cd ..
+git lfs pull
 pip install .
 ```
 **One then needs to install the [FFCV](https://github.com/libffcv/ffcv) package seperately to run our training scripts.**
@@ -63,7 +70,8 @@ To install the Mantis Shrimp package (without dependencies)
 ```bash
 git clone https://github.com/pnnl/MantisShrimp.git
 cd MantisShrimp
-pip install .
+git lfs pull
+pip install -e .
 ```
 
 ## Tutorial

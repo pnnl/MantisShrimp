@@ -28,12 +28,13 @@ config['data_dir'] = os.path.join(current_dir,'dustmaps')
 
 #SO: the only option here is clobber=False; that still means the dustmaps have to be placed exactly
 #in the correct place, with the correct filename, and have a correct hash to what dustmaps hardcodes internally.
-#csfd.fetch()
+csfd.fetch()
 csfdquery = csfd.CSFDQuery()
-#planck.fetch()
+# planck.fetch()
 planckquery = planck.PlanckQuery()
 
 if __name__ == '__main__':
+    
     #TODO add basic usage.
     pass
 

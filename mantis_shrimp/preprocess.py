@@ -23,7 +23,7 @@ def process_galex(path):
     '''
     take in fits path, returns image of galex data
     '''
-    with fits.open(path) as hdu:
+    with fits.open(path, ignore_missing_simple=True) as hdu:
         img = hdu[0].data
         img = np.array(img) #2,50,50 = [NUV, FUV]
 
@@ -36,7 +36,7 @@ def process_unwise(path):
     '''
     take in fits path, returns image of unwise data
     '''
-    with fits.open(path) as hdu:
+    with fits.open(path, ignore_missing_simple=True) as hdu:
         img = hdu[0].data # = [W1, W2]
         img = np.array(img) 
 
@@ -52,7 +52,7 @@ def process_panstarrs(list_of_paths):
     FILTERS = ['g','r','i','z','y']
     img_filters = []
     for path in list_of_paths:
-        with fits.open(path) as hdu:
+        with fits.open(path, ignore_missing_simple=True) as hdu:
             img = hdu[0].data
             img_filters.append(img)
 

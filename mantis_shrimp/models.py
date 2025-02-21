@@ -888,7 +888,7 @@ def trained_early(device):
     weights_path = os.path.join(current_dir, "MODELS_final", "best_early.pt")
 
     #now load that weight file, and make some corrections that I do not know the cause of.
-    ckpt = torch.load(weights_path,map_location=torch.device(device),weights_only=True)
+    ckpt = torch.load(weights_path,map_location=torch.device(device),weights_only=False)
     old_keys = list(ckpt.keys())
     for key in old_keys:
         if 'module.' in key:
