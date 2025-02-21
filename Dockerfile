@@ -10,20 +10,21 @@ USER root
 RUN apt-get update -y && apt-get upgrade -y && \
     apt-get install -y git python3 python3-pip wget git-lfs
 
-WORKDIR /env/mantis_shrimp/dustmaps/csfd/
+COPY mantis_shrimp/dustmaps/csfd/ /env/mantis_shrimp/dustmaps/csfd/
+COPY mantis_shrimp/dustmaps/planck/ /env/mantis_shrimp/dustmaps/planck/
 
-RUN wget -O csfd_ebv.fits https://zenodo.org/record/8207175/files/csfd_ebv.fits && \
-    wget -O /mask.fits https://zenodo.org/record/8207175/files/mask.fits
+# WORKDIR /env/mantis_shrimp/dustmaps/csfd/
+# RUN wget -O csfd_ebv.fits https://zenodo.org/record/8207175/files/csfd_ebv.fits && \
+#     wget -O /mask.fits https://zenodo.org/record/8207175/files/mask.fits
 
-WORKDIR /env/mantis_shrimp/dustmaps/csfd/planck/
-RUN wget -O HFI_CompMap_ThermalDustModel_2048_R1.20.fits "http://pla.esac.esa.int/pla/aio/product-action?MAP.MAP_ID=HFI_CompMap_ThermalDustModel_2048_R1.20.fits"
+# WORKDIR /env/mantis_shrimp/dustmaps/csfd/planck/
+# RUN wget -O HFI_CompMap_ThermalDustModel_2048_R1.20.fits "http://pla.esac.esa.int/pla/aio/product-action?MAP.MAP_ID=HFI_CompMap_ThermalDustModel_2048_R1.20.fits"
 
 # Set the working directory to the user's home (writable)
 WORKDIR /home/mambauser
 
 # Copy only the environment file first to optimize caching
 COPY --chown=mambauser:mambauser production.yml /home/mambauser/production.yml
-
 
 # Switch to the default non-root user provided by Micromamba
 USER mambauser
@@ -40,9 +41,6 @@ COPY --chown=mambauser:mambauser . /home/mambauser/env
 
 # Install the application using the newly created environment
 RUN micromamba run -n $ENV_NAME pip install -e /home/mambauser/env
-
-#finally install gunicorn under the same environment
-RUN micromamba run -n $ENV_NAME pip install gunicorn
 
 # Set the working directory to the user's home (writable)
 WORKDIR /home/mambauser/env/webapp
