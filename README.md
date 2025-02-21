@@ -40,10 +40,12 @@ This repository serves multiple purposes: our intent is to support users who wan
 #### Users who want to run the model:
 To install Mantis Shrimp with dependencies for inference mode only:
 ```bash
+# If you have just installed git-lfs, you may need to run `git lfs install` before `git lfs pull`
 git clone https://github.com/pnnl/MantisShrimp.git
 cd MantisShrimp
 git lfs pull
-conda env create --name $MY_ENV --file production.yml
+conda install -n base -c conda-forge mamba
+mamba env create --name $MY_ENV --file production.yml
 conda activate $MY_ENV
 pip install .
 ```
@@ -53,7 +55,8 @@ To install our **exact** training environemnt for reproducibility and training:
 ```bash
 git clone https://github.com/pnnl/MantisShrimp.git
 cd MantisShrimp/run
-conda env create --name $MY_ENV --file environment.yml
+conda install -n base -c conda-forge mamba
+mamba env create --name $MY_ENV --file environment.yml
 conda activate $MY_ENV
 cd ..
 git lfs pull
