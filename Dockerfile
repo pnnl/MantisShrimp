@@ -13,13 +13,6 @@ RUN apt-get update -y && apt-get upgrade -y && \
 COPY mantis_shrimp/dustmaps/csfd/ /env/mantis_shrimp/dustmaps/csfd/
 COPY mantis_shrimp/dustmaps/planck/ /env/mantis_shrimp/dustmaps/planck/
 
-# WORKDIR /env/mantis_shrimp/dustmaps/csfd/
-# RUN wget -O csfd_ebv.fits https://zenodo.org/record/8207175/files/csfd_ebv.fits && \
-#     wget -O /mask.fits https://zenodo.org/record/8207175/files/mask.fits
-
-# WORKDIR /env/mantis_shrimp/dustmaps/csfd/planck/
-# RUN wget -O HFI_CompMap_ThermalDustModel_2048_R1.20.fits "http://pla.esac.esa.int/pla/aio/product-action?MAP.MAP_ID=HFI_CompMap_ThermalDustModel_2048_R1.20.fits"
-
 # Set the working directory to the user's home (writable)
 WORKDIR /home/mambauser
 
@@ -49,4 +42,4 @@ WORKDIR /home/mambauser/env/webapp
 EXPOSE 5000
 
 # Set the entrypoint to activate the environment and start the web server
-# ENTRYPOINT ["/bin/bash", "-c", "micromamba run -n basic gunicorn -w 1 -b 0.0.0.0:5000 app:app"]
+ENTRYPOINT ["/bin/bash", "-c", "micromamba run -n basic gunicorn -w 1 -b 0.0.0.0:5000 app:app"]
