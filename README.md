@@ -40,6 +40,7 @@ To install Mantis Shrimp with dependencies for inference mode only:
 ```bash
 git clone https://github.com/pnnl/MantisShrimp.git
 cd MantisShrimp
+git pull lfs
 conda env create --name $MY_ENV --file production.yml
 conda activate $MY_ENV
 pip install .
@@ -53,6 +54,7 @@ cd MantisShrimp/run
 conda env create --name $MY_ENV --file environment.yml
 conda activate $MY_ENV
 cd ..
+git pull lfs
 pip install .
 ```
 **One then needs to install the [FFCV](https://github.com/libffcv/ffcv) package seperately to run our training scripts.**
@@ -63,7 +65,8 @@ To install the Mantis Shrimp package (without dependencies)
 ```bash
 git clone https://github.com/pnnl/MantisShrimp.git
 cd MantisShrimp
-pip install .
+git pull lfs
+pip install -e .
 ```
 
 ## Tutorial
