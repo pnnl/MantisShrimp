@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='mantis_shrimp',
     version='0.1',
-    url='https://github.com/pnnl/mantis_shrimp.git',
+    url='https://github.com/pnnl/MantisShrimp.git',
     author='Andrew Engel',
     author_email='andrew.engel@pnnl.gov',
     description='Photometric Redshift Estimation using Computer Vision',
