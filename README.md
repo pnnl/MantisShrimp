@@ -31,7 +31,9 @@ This will launch a flask webapp server accessible from any web browser by naviga
 
 **NOTE: Users should set the gunicorn -w parameter to control the number of workers spawned for running the server.** Most users who are simply testing the server or making quick redshift estimates should choose $N_WORKERS=1. See line 40 of the Dockerfile:
 ```bash
-CMD ["bash", "-c", "source activate $ENV_NAME && gunicorn -w $N_WORKERS -b 0.0.0.0:5000 app:app"]
+ENV ENV_NAME=basic
+ENV N_WORKERS=1
+ENTRYPOINT ["bash", "-c", "source activate $ENV_NAME && gunicorn -w $N_WORKERS -b 0.0.0.0:5000 app:app"]
 ```
 
 ## Installation Options
@@ -45,9 +47,10 @@ git clone https://github.com/pnnl/MantisShrimp.git
 cd MantisShrimp
 git lfs pull
 conda install -n base -c conda-forge mamba
-mamba env create --name $MY_ENV --file production.yml
-conda activate $MY_ENV
+mamba env create --name $ENV_NAME --file production.yml
+conda activate $ENV_NAME
 pip install .
+gunicorn -w $N_WORKERS -b 0.0.0.0:5000 app:app
 ```
 
 #### Users who want to train the model:
@@ -56,8 +59,8 @@ To install our **exact** training environemnt for reproducibility and training:
 git clone https://github.com/pnnl/MantisShrimp.git
 cd MantisShrimp/run
 conda install -n base -c conda-forge mamba
-mamba env create --name $MY_ENV --file environment.yml
-conda activate $MY_ENV
+mamba env create --name $ENV_NAME --file environment.yml
+conda activate $ENV_NAME
 cd ..
 git lfs pull
 pip install .
